@@ -1,12 +1,24 @@
 package com.nnk.springboot.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.io.Serializable;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Validated
 @Table(name = "rating")
-public class Rating {
-    // TODO: Map columns in data table RATING with corresponding java fields
-}
+public class Rating implements Serializable {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+    private String moodysRating;
+    private String sandPRating;
+    private String fitchRating;
+    private Integer orderNumber;}

@@ -1,11 +1,21 @@
 package com.nnk.springboot.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Validated
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -18,7 +28,7 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
-    public Integer getId() {
+    /*public Integer getId() {
         return id;
     }
 
@@ -56,5 +66,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
+    }*/
 }
