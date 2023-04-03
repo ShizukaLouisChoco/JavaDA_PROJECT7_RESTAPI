@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Bid</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/bidList/validate}"  method="post" class="form-horizontal" style="width: 100%">
+			<section>
+			<div class="container p-3">
+				<!--exception handling
+				<div class="row justify-content-center">
+					<div class="col-6">
+						<div class="alert alert-danger" th:if="${errorMsg}" th:class="${errorMsg}? 'alert alert-danger':''" role="alert">
+							<p th:text="${errorMsg}"></p>
+						</div>
+					</div>
+				</div>
+				-->
+				<div th:object="${bidListForm}">
+
+						<div class="row">
+							<label for="account" class="col-form-label ">Account</label>
+						</div>
+						<div class="row">
+							<input type="text" th:field="*{account}" id="account" placeholder="Account here"/>
+							<!--validation error-->
+							<p th:if="${#fields.hasErrors('account')}" th:class="${#fields.hasErrors('account')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{account}"></p>
+						</div>
+
+
+						<div class="row ">
+							<label for="type" class=" col-form-label ">type</label>
+						</div>
+						<div class="row ">
+							<input type="text" th:field="*{type}" id="type" placeholder="type"/>
+							<!--validation error-->
+							<p th:if="${#fields.hasErrors('type')}" th:class="${#fields.hasErrors('type')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{type}"></p>
+						</div>
+
+
+						<div class="row">
+							<label for="bidQuantity" class="col-form-label ">Bid Quantity</label>
+						</div>
+						<div class="row">
+							<input type="number" th:field="*{bidQuantity}" id="bidQuantity" placeholder="Bid Quantity here"/>
+							<!--validation error-->
+							<p th:if="${#fields.hasErrors('bidQuantity')}" th:class="${#fields.hasErrors('bidQuantity')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{bidQuantity}"></p>
+						</div>
+
+					<div class="row">
+
+							<button class="btn btn-primary btn-danger" type="reset"><a href="list">Cancel</a></button>
+							<button class="btn btn-primary" type="submit">Add BidList</button>
+
+					</div>
+				</div>
+			</div>
+			</section>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
