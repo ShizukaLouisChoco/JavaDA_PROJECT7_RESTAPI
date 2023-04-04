@@ -1,9 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.dto.CurveFormDto;
-import com.nnk.springboot.exception.BidListNotFoundException;
 import com.nnk.springboot.exception.CurvePointNotFoundException;
 import com.nnk.springboot.service.CurveService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +27,6 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
         model.addAttribute("curvelist", curveService.findList());
         return "curvePoint/list";
     }

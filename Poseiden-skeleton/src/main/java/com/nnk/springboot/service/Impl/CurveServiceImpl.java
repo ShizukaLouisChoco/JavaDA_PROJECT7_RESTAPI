@@ -1,14 +1,10 @@
 package com.nnk.springboot.service.Impl;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.CurveFormDto;
 import com.nnk.springboot.exception.CurvePointAlreadyExistException;
 import com.nnk.springboot.exception.CurvePointNotFoundException;
-import com.nnk.springboot.exception.UserNotFoundException;
 import com.nnk.springboot.repositories.CurvePointRepository;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.ConnectedUserDetailsService;
 import com.nnk.springboot.service.CurveService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +22,6 @@ public class CurveServiceImpl implements CurveService {
 
     private final ConnectedUserDetailsService connectedUserDetailsService;
     private final CurvePointRepository curvePointRepository;
-    private final UserRepository userRepository;
 
     @Override
     public List<CurvePoint> findList() {

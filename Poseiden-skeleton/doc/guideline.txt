@@ -3,6 +3,7 @@
 
 1. Framework: Spring boot v2.0.4
 2. Java 8
+//TODO:java: warning: source release 11 requires target release 11 Module spring-boot-skeleton SDK 1.8 is not compatible with the source version 11. Upgrade Module SDK in project settings to 11 or higher. Open project settings.
 3. Thymeleaf
 4. Bootstrap v.4.3.1
 
