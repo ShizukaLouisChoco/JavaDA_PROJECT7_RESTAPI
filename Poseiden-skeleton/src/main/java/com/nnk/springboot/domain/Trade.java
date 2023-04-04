@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 
-@Entity
+@CrudEntity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Validated
 @Table(name = "bidlist")
-public class BidList implements Serializable {
+public class BidList implements Serializable, CrudEntity<BidList> {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -73,5 +73,22 @@ public class BidList implements Serializable {
     public BidList(@NotBlank(message = "Account is mandatory") String account, @NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
 
     }
+
+    public BidList(BidList entity){
+        this.account = entity.getAccount();
+        this.type = entity.getType();
+        this.bidQuantity = entity.getBidQuantity();
+        this.revisionDate = entity.getRevisionDate();
+    }
+
+
+    public BidList update(BidList entity) {
+        this.account = entity.getAccount();
+        this.type = entity.getType();
+        this.bidQuantity = entity.getBidQuantity();
+        this.revisionDate = entity.getRevisionDate();
+        return this;
+    }
+
 
 }

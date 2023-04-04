@@ -2,16 +2,14 @@ package com.nnk.springboot.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 
-@Entity
+@CrudEntity
 @Data
 //@NoArgsConstructor
 @AllArgsConstructor
