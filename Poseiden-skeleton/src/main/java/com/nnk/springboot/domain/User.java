@@ -1,73 +1,48 @@
 package com.nnk.springboot.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@CrudEntity
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Validated
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements Serializable, CrudEntity<User>  {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @NotBlank(message = "Username is mandatory")
+    //@NotBlank(message = "Username is mandatory")
     private String username;
-    @NotBlank(message = "Password is mandatory")
+    //@NotBlank(message = "Password is mandatory")
     private String password;
-    @NotBlank(message = "FullName is mandatory")
+    //@NotBlank(message = "FullName is mandatory")
     private String fullname;
-    @NotBlank(message = "Role is mandatory")
+    //@NotBlank(message = "Role is mandatory")
     private String role;
 
-    /*public Integer getId() {
-        return id;
+    public User(User entity) {
+        this.username = entity.getUsername();
+        this.password = entity.getPassword();
+        this.fullname = entity.getFullname();
+        this.role = entity.getRole();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public User() {
+
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public User update(User entity) {
+        this.username = entity.getUsername();
+        this.password = entity.getPassword();
+        this.fullname = entity.getFullname();
+        this.role = entity.getRole();
+        return this;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }*/
 }

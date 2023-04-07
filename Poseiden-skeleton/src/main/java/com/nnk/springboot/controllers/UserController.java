@@ -1,8 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.service.UserService;
+import com.nnk.springboot.exception.NoResourceException;
+import com.nnk.springboot.service.CrudService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,28 +14,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private final CrudService crudService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(@Qualifier("UserCrudServiceImpl") CrudService crudService) {
+        this.crudService = crudService;
     }
 
 
     @RequestMapping("/user/list")
     public String home(Model model)
     {
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("userList", crudService.getAll());
         return "user/list";
     }
 
     @GetMapping("/user/add")
-    public String addUser(User bid,Model model) {
-        model.addAttribute(bid);
+    public String addUser(User user,Model model) {
+        model.addAttribute("user",new User());
         return "user/add";
     }
 
@@ -45,49 +48,43 @@ public class UserController {
         }
         //exception handling
         try {
-            userService.createUser(user);
+            crudService.create(user);
         }catch(Exception exception){
             log.error(String.valueOf(exception));
             model.addAttribute("errorMsg" , exception.getMessage());
             return "user/add";
         }
 
-        return "user/add";
-
-        /*if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
-            return "redirect:/user/list";
-        }
-        return "user/add";*/
+        return "redirect:/user/list";
     }
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
-        model.addAttribute("user", user);
+        model.addAttribute("user", Optional.of(crudService.getById(id)).orElseThrow(() -> new NoResourceException(id)));
         return "user/update";
     }
 
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
+        model.addAttribute("user",user);
         if (result.hasErrors()) {
-            return "user/update";
+            return "user/update/{id}";
+        }try {
+            crudService.update(user);
+        }catch(Exception exception){
+            model.addAttribute("user",user);
+            log.error(String.valueOf(exception));
+            model.addAttribute("errorMsg" , exception.getMessage());
+            return "user/update/{id}";
         }
-
-        userService.update(user);
-        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        userService.delete(id);
-         model.addAttribute("users", userService.findAll());
+        crudService.delete(id);
+        // model.addAttribute("users", crudService.getAll());
         return "redirect:/user/list";
     }
 }

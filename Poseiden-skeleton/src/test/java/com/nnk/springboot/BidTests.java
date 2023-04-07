@@ -21,7 +21,7 @@ public class BidTests {
 
 	@Test
 	public void bidListTest() {
-		BidList bid = new BidList(null,bid.getAccount(), bid.getType(), bid.getBidQuantity());
+		BidList bid = new BidList(/*null,bid.getAccount(), bid.getType(), bid.getBidQuantity()*/);
 		bid.setAccount("Account Test");
 		bid.setType("Type Test");
 		bid.setBidQuantity(10d);

@@ -1,30 +1,34 @@
 package com.nnk.springboot.service.Impl;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.exception.UserNotFoundException;
-import com.nnk.springboot.exception.UsernameAlreadyExistException;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.UserService;
-import lombok.RequiredArgsConstructor;
+import com.nnk.springboot.service.AbstractCrudService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+@Qualifier("UserCrudServiceImpl")
+public class UserCrudServiceImpl extends AbstractCrudService<User> {
 
+    public UserCrudServiceImpl(UserRepository repository){
+        super(repository);
+    }
+
+    @Override
+    public User create(User entity){
+        User newUser = new User(entity);
+        return super.create(newUser);
+    }
+    /*
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll();
+        return crudService.findAll();
     }
 
     @Transactional
@@ -73,5 +77,5 @@ public class UserServiceImpl implements UserService {
     public void delete(Integer id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Invalid user Id:" + id));
         userRepository.delete(user);
-    }
+    }*/
 }

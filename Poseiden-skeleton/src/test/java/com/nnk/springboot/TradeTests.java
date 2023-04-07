@@ -21,7 +21,7 @@ public class TradeTests {
 
 	@Test
 	public void tradeTest() {
-		Trade trade = new Trade();
+		Trade trade = new Trade(entity);
 		trade.setAccount("Trade Account");
 		trade.setType("Type");
 

@@ -1,23 +1,18 @@
 package com.nnk.springboot.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@CrudEntity
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Validated
 @Table(name = "rulename")
-public class RuleName implements Serializable {
+public class RuleName implements Serializable , CrudEntity<RuleName> {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -27,4 +22,28 @@ public class RuleName implements Serializable {
     private String template;
     private String sqlStr;
     private String sqlPart;
+
+    public RuleName(RuleName entity) {
+        this.name = entity.getName();
+        this.description = entity.getDescription();
+        this.json = entity.getJson();
+        this.template = entity.getTemplate();
+        this.sqlStr = entity.getSqlStr();
+        this.sqlPart = entity.getSqlPart();
+    }
+
+    public RuleName() {
+
+    }
+
+    @Override
+    public RuleName update(RuleName entity) {
+        this.name = entity.getName();
+        this.description = entity.getDescription();
+        this.json = entity.getJson();
+        this.template = entity.getTemplate();
+        this.sqlStr = entity.getSqlStr();
+        this.sqlPart = entity.getSqlPart();
+        return this;
+    }
 }

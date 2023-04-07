@@ -1,6 +1,5 @@
 package com.nnk.springboot.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -9,26 +8,26 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 
-@CrudEntity
+@Entity
 @Data
 //@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Validated
 @Table(name = "curvepoint")
-public class CurvePoint implements Serializable {
+public class CurvePoint implements Serializable, CrudEntity<CurvePoint>  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private Integer curveId;
 
-    @Column(name = "as_of_date")
+    //@Column(name = "as_of_date")
     private Timestamp asOfDate;
     private Double term;
     private Double value;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
+    //@Column(name = "creation_date", nullable = false, updatable = false)
     private Timestamp creationDate;
 
     //for create CurvePoint
@@ -51,6 +50,22 @@ public class CurvePoint implements Serializable {
 
     public CurvePoint() {
 
+    }
+
+    public CurvePoint(CurvePoint entity) {
+        this.curveId = entity.getCurveId();
+        this.term = entity.getTerm();
+        this.value = entity.getValue();
+        this.asOfDate = entity.getAsOfDate();
+    }
+
+    @Override
+    public CurvePoint update(CurvePoint entity) {
+        this.curveId = entity.getCurveId();
+        this.term = entity.getTerm();
+        this.value = entity.getValue();
+        this.asOfDate = entity.getAsOfDate();
+        return this;
     }
     //public CurvePoint(@NotBlank(message = "Account is mandatory") String account, @NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
 
