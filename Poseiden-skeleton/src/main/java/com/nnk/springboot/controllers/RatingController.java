@@ -30,8 +30,7 @@ public class RatingController {
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
-        // TODO: find all Rating, add to model
-        model.addAttribute("ratingList", crudService.getAll());
+        model.addAttribute("ratingList", ratingCrudService.getAll());
         return "rating/list";
     }
 
