@@ -45,6 +45,6 @@ public class BidTest {
 		Integer id = bid.getId();
 		bidListRepository.delete(bid);
 		Optional<BidList> bidList = bidListRepository.findById(id);
-		Assert.assertFalse(bidList.isPresent());
+		 assertFalse(bidList.isPresent());
 	}
 }

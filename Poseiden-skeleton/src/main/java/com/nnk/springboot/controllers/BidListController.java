@@ -82,9 +82,8 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
-        crudService.delete(id);
+    public String deleteBid(@PathVariable("id") Integer id) {
+        bidListCrudService.delete(id);
         return "redirect:/bidList/list";
     }
 }
