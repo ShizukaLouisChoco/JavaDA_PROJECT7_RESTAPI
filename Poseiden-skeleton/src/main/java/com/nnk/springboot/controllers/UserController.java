@@ -60,7 +60,7 @@ public class UserController {
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("user", Optional.of(crudService.getById(id)).orElseThrow(() -> new NoResourceException(id)));
+        model.addAttribute("user", Optional.of(UserCrudService.getById(id)).orElseThrow(() -> new NoResourceException(id)));
         return "user/update";
     }
 
@@ -69,14 +69,14 @@ public class UserController {
                              BindingResult result, Model model) {
         model.addAttribute("user",user);
         if (result.hasErrors()) {
-            return "user/update/{id}";
+            return "user/update";
         }try {
-            crudService.update(user);
+            UserCrudService.update(user);
         }catch(Exception exception){
             model.addAttribute("user",user);
             log.error(String.valueOf(exception));
             model.addAttribute("errorMsg" , exception.getMessage());
-            return "user/update/{id}";
+            return "user/update";
         }
         return "redirect:/user/list";
     }
