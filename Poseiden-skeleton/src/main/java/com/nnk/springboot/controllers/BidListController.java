@@ -66,17 +66,18 @@ public class BidListController {
     //Bid 2.4
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
-            model.addAttribute("bidListForm",bidList);
+                            BindingResult result, Model model) {
+        model.addAttribute("bidListForm",bidList);
         if(result.hasErrors()){
-            return "/bidList/update/{id}";
+            return "bidList/update";
         }
         try{
             crudService.update(bidList);
         }catch(Exception ex){
             model.addAttribute("bidListForm",bidList);
-            return "bidList/update/{id}";
+            log.error(String.valueOf(exception));
+            model.addAttribute("errorMsg" , exception.getMessage());
+            return "bidList/update";
 
         }
         return "redirect:/bidList/list";
