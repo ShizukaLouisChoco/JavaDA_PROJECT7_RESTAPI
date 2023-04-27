@@ -19,10 +19,11 @@ import java.util.Optional;
 @Slf4j
 @Controller
 public class RuleNameController {
-    private final CrudService crudService;
 
-    public RuleNameController(@Qualifier("RuleNameCrudServiceImpl") CrudService crudService) {
-        this.crudService = crudService;
+    private final CrudService<RuleName> ruleNameCrudService;
+
+    public RuleNameController(@Qualifier("RuleNameCrudServiceImpl") CrudService<RuleName> ruleNameCrudService) {
+        this.ruleNameCrudService = ruleNameCrudService;
     }
 
     @RequestMapping("/ruleName/list")
@@ -33,23 +34,18 @@ public class RuleNameController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName ruleName, Model model) {
-        model.addAttribute("ruleListForm",new RuleName());
+    public String addRuleForm(  Model model) {
+        model.addAttribute("ruleName",new RuleName());
         return "ruleName/add";
     }
 
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
+        model.addAttribute("ruleName",ruleName);
         if(result.hasErrors()){
             return "ruleName/add";
         }
-        try{
-            crudService.create(ruleName);
-        }catch(Exception ex){
-            model.addAttribute("ruleForm",ruleName);
-            return "ruleName/add";
-        }
+        ruleNameCrudService.create(ruleName);
         return "redirect:/ruleName/list";
     }
 
