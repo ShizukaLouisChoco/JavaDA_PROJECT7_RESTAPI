@@ -29,40 +29,15 @@ public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository
         User newUser = new User(entity);
         return super.create(newUser);
     }
-    /*
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
-
-    @Override
-    public List<User> findAll() {
-        return crudService.findAll();
-    }
-
-    @Transactional
-    @Override
-    public void createUser(User user) {
-        //varification if username is already used or not
-        Optional<User> userExists = userRepository.findByUsername(user.getUsername());
-        if(userExists.isPresent()){
-            throw new UsernameAlreadyExistException("This username is already used : " + user.getUsername() );
+ @Override
+    public void update(User entity) throws ResourceAlreadyExistException{
+        Optional<User> userExists = repository.findByUsername(entity.getUsername());
+        if(userExists.isPresent() && userExists.get().getId()!= entity.getId()){
+            throw new ResourceAlreadyExistException(entity.getUsername());
         }
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        newUser.setFullname(user.getFullname());
-        newUser.setRole(user.getRole());
-        userRepository.save(newUser);
-    }
-
-    @Override
-    public Optional<User> findById(Integer id) {
-        return userRepository.findById(id);
-    }
-
-    @Transactional
-    @Override
-    public void save(User user) {
-        userRepository.save(user);
+        User updatedEntity =  getById(entity.getId())
+                .update(entity);
+        this.repository.save(updatedEntity );
     }
 
 
