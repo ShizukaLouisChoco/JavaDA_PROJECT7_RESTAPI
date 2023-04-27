@@ -30,7 +30,7 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        model.addAttribute("curvelist", crudService.getAll());
+        model.addAttribute("curvePointList", curveCrudService.getAll());
         return "curvePoint/list";
     }
 
