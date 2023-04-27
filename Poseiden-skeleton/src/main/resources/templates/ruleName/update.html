@@ -1,26 +1,100 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8"/>
-	<title>Home</title>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Update New Rule</h2>
-	</div>
+    <div class="row">
+        <h2>Update New Rule</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName
-			 -->
+    <div class="row">
+        <form th:method="post" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}">
+            <!--contents-->
+            <div class="row">
+                <label for="name" class="col-form-label ">name</label>
+            </div>
+            <div class="row">
+                <input type="text" th:field="*{name}" id="name" th:placeholder="*{name}"/>
+            </div>
+            <!--validation error-->
+            <div class="row">
+                <p th:if="${#fields.hasErrors('name')}" th:class="${#fields.hasErrors('name')}? 'text-danger'"
+                   th:errorclass="error" th:errors="*{name}"></p>
+            </div>
+            <div class="row ">
+                <label for="description" class=" col-form-label ">description</label>
+            </div>
+            <div class="row ">
+                <input type="text" th:field="*{description}" id="description" th:placeholder="*{description}"/>
+            </div>
+            <!--validation error-->
+            <div class="row ">
+                <p th:if="${#fields.hasErrors('description')}"
+                   th:class="${#fields.hasErrors('description')}? 'text-danger'"
+                   th:errorclass="error" th:errors="*{description}"></p>
+            </div>
 
-		</form>
-	</div>
+            <div class="row ">
+                <label for="json" class=" col-form-label ">json</label>
+            </div>
+            <div class="row ">
+                <input type="text" th:field="*{json}" id="json" th:placeholder="*{json}"/>
+            </div>
+            <!--validation error-->
+            <div class="row ">
+                <p th:if="${#fields.hasErrors('json')}" th:class="${#fields.hasErrors('json')}? 'text-danger'"
+                   th:errorclass="error" th:errors="*{json}"></p>
+            </div>
+
+            <div class="row ">
+                <label for="template" class=" col-form-label ">template</label>
+            </div>
+            <div class="row ">
+                <input type="text" th:field="*{template}" id="template" th:placeholder="*{template}"/>
+            </div>
+            <!--validation error-->
+            <div class="row ">
+                <p th:if="${#fields.hasErrors('template')}" th:class="${#fields.hasErrors('template')}? 'text-danger'"
+                   th:errorclass="error" th:errors="*{template}"></p>
+            </div>
+
+            <div class="row ">
+                <label for="sqlStr" class=" col-form-label ">sql</label>
+            </div>
+            <div class="row ">
+                <input type="text" th:field="*{sqlStr}" id="sqlStr" th:placeholder="*{sqlStr}"/>
+            </div>
+            <!--validation error-->
+            <div class="row ">
+                <p th:if="${#fields.hasErrors('sqlStr')}" th:class="${#fields.hasErrors('sqlStr')}? 'text-danger'"
+                   th:errorclass="error" th:errors="*{sqlStr}"></p>
+            </div>
+
+            <div class="row ">
+                <label for="sqlPart" class=" col-form-label ">sqlPart</label>
+            </div>
+            <div class="row ">
+                <input type="text" th:field="*{sqlPart}" id="sqlPart" th:placeholder="*{sqlPart}"/>
+            </div>
+            <!--validation error-->
+            <div class="row ">
+                <p th:if="${#fields.hasErrors('sqlPart')}" th:class="${#fields.hasErrors('sqlPart')}? 'text-danger'"
+                   th:errorclass="error" th:errors="*{sqlPart}"></p>
+            </div>
+
+            <div class="row">
+
+                <button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/ruleName/list">Cancel</a></button>
+                <button class="btn btn-primary" type="submit">Update BidList</button>
+            </div>
+        </form>
+    </div>
 
 </div>
 </body>

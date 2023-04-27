@@ -51,24 +51,24 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
-        model.addAttribute("ruleName", Optional.of(crudService.getById(id)).orElseThrow(()->new NoResourceException( id)));
+        model.addAttribute("ruleName", Optional.of(ruleNameCrudService.getById(id)).orElseThrow(()->new NoResourceException( id)));
         return "ruleName/update";
     }
 
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         model.addAttribute("ruleName",ruleName);
         if(result.hasErrors()){
-            return "/ruleName/update/{id}";
+            return "ruleName/update";
         }
         try{
-            crudService.update(ruleName);
-        }catch(Exception ex){
+            ruleNameCrudService.update(ruleName);
+        }catch(Exception exception){
             model.addAttribute("ruleName",ruleName);
-            return "ruleName/update/{id}";
+            log.error(String.valueOf(exception));
+            model.addAttribute("errorMsg" , exception.getMessage());
+            return "ruleName/update";
 
         }
         return "redirect:/ruleName/list";
