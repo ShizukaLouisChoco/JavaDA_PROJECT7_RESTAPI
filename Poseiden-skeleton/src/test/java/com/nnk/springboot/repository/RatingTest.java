@@ -46,6 +46,6 @@ public class RatingTest {
 		Integer id = rating.getId();
 		ratingRepository.delete(rating);
 		Optional<Rating> ratingList = ratingRepository.findById(id);
-		Assert.assertFalse(ratingList.isPresent());
+		 assertFalse(ratingList.isPresent());
 	}
 }
