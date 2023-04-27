@@ -40,7 +40,7 @@ public class RatingTest {
 
 		// Find
 		List<Rating> listResult = ratingRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+		 assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = rating.getId();
