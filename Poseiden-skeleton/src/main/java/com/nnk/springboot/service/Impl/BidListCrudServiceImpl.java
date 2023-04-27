@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
-@Qualifier("BidListCrudServiceImpl")
-public class BidListCrudServiceImpl extends AbstractCrudService<BidList>  {
+@Service("bidListCrudService")
+public class BidListCrudServiceImpl extends AbstractCrudService<BidList,BidListRepository>  {
 
 
     @Autowired

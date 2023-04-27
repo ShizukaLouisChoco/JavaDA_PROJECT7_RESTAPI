@@ -13,8 +13,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Validated
 @Table(name = "bidlist")
 public class BidList implements Serializable, CrudEntity<BidList> {
@@ -83,12 +82,13 @@ public class BidList implements Serializable, CrudEntity<BidList> {
         this.bidQuantity = bidQuantity;
 
     }
-    public BidList(@NotBlank(message = "Account is mandatory") String account, @NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
+    public BidList (String account, String type, Double bidQuantity,Timestamp revisionDate){
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+        this.revisionDate = revisionDate;
 
     }
-
-
-
 
     public BidList update(BidList entity) {
         this.account = entity.getAccount();
