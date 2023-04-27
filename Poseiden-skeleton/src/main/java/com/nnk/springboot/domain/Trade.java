@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -18,27 +20,27 @@ public class Trade  implements Serializable, CrudEntity<Trade>  {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @NotBlank(message = "account is mandatory")
     private String account;
+    @NotBlank(message = "type is mandatory")
     private String type;
+    @NotNull(message = "buyQuantity is mandatory")
     private Double buyQuantity;
     private Double sellQuantity;
     private Double buyPrice;
     private Double sellPrice;
     private String benchmark;
 
-    //@Column(name = "trade_date", nullable = false, updatable = false)
-    private Timestamp tradeDate;
+   private Timestamp tradeDate;
     private String security;
     private String status;
     private String trader;
     private String book;
     private String creationName;
 
-    //@Column(name = "creation_date", nullable = false, updatable = false)
     private Timestamp creationDate;
     private String revisionName;
 
-    //@Column(name = "revision_date", nullable = false, updatable = false)
     private Timestamp revisionDate;
     private String dealName;
     private String dealType;
@@ -70,6 +72,19 @@ public class Trade  implements Serializable, CrudEntity<Trade>  {
 
     public Trade() {
 
+    }
+
+    public Trade(Integer id, String account, String type, Double buyQuantity) {
+        this.id = id;
+        this.account =account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
+    }
+
+    public Trade(String account, String type, double buyQuantity) {
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
     }
 
     @Override

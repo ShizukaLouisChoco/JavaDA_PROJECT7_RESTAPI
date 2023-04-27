@@ -20,10 +20,11 @@ import java.util.Optional;
 @Controller
 public class TradeController {
 
-    private final CrudService crudService;
 
-    public TradeController(@Qualifier("TradeCrudServiceImpl") CrudService crudService) {
-        this.crudService = crudService;
+    private final CrudService<Trade> tradeCrudService;
+
+    public TradeController(@Qualifier("TradeCrudServiceImpl") CrudService<Trade> tradeCrudService) {
+        this.tradeCrudService = tradeCrudService;
     }
     @RequestMapping("/trade/list")
     public String home(Model model)
@@ -34,23 +35,18 @@ public class TradeController {
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade trade,Model model) {
-        model.addAttribute("trade", new Trade());
+    public String addTrade( Model model) {
+        model.addAttribute("trade", new Trade( ));
         return "trade/add";
     }
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
+        model.addAttribute("trade",trade);
         if(result.hasErrors()){
             return "trade/add";
         }
-        try{
-            crudService.create(trade);
-        }catch(Exception ex){
-            model.addAttribute("trade",trade);
-            return "trade/add";
-        }
+        tradeCrudService.create(trade);
         return "redirect:/trade/list";
     }
 
