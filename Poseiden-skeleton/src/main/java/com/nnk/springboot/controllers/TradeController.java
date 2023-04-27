@@ -52,24 +52,24 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
-        model.addAttribute("trade", Optional.of(crudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
+        model.addAttribute("trade", Optional.of(tradeCrudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
         return "trade/update";
     }
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
         model.addAttribute("trade",trade);
         if(result.hasErrors()){
-            return "/trade/update/{id}";
+            return "trade/update";
         }
         try{
-            crudService.update(trade);
-        }catch(Exception ex){
+            tradeCrudService.update(trade);
+        }catch(Exception exception){
             model.addAttribute("trade",trade);
-            return "trade/update/{id}";
+            log.error(String.valueOf(exception));
+            model.addAttribute("errorMsg" , exception.getMessage());
+            return "trade/update";
 
         }
         return "redirect:/trade/list";

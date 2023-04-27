@@ -13,10 +13,53 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
-			 -->
+		<form action="#" th:action="@{/trade/update/{id}(id=${trade.id})}"  method="post" class="form-horizontal" style="width: 100%">
+			<div th:object="${trade}">
+				<div class="row">
+					<label for="account" class="col-form-label ">Account</label>
+				</div>
+				<div class="row">
+					<input type="text" th:field="*{account}" id="account" th:placeholder="*{account}"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('account')}" th:class="${#fields.hasErrors('account')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{account}"></p>
+				</div>
+
+
+				<div class="row ">
+					<label for="type" class=" col-form-label ">type</label>
+				</div>
+				<div class="row ">
+					<input type="text" th:field="*{type}" id="type" th:placeholder="*{type}"/>
+				</div>
+					<!--validation error-->
+				<div class="row ">
+					<p th:if="${#fields.hasErrors('type')}" th:class="${#fields.hasErrors('type')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{type}"></p>
+				</div>
+
+
+				<div class="row">
+					<label for="buyQuantity" class="col-form-label ">Bid Quantity</label>
+				</div>
+				<div class="row">
+					<input type="number" th:field="*{buyQuantity}" id="buyQuantity" th:placeholder="*{buyQuantity}"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('buyQuantity')}" th:class="${#fields.hasErrors('buyQuantity')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{buyQuantity}"></p>
+				</div>
+
+				<div class="row">
+
+					<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/trade/list">Cancel</a></button>
+					<button class="btn btn-primary" type="submit">Update BidList</button>
+
+				</div>
+			</div>
 		</form>
 	</div>
 

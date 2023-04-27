@@ -35,7 +35,7 @@ public class TradeTest {
 		// Update
 		trade.setAccount("Trade Account Update");
 		trade = tradeRepository.save(trade);
-		Assert.assertTrue(trade.getAccount().equals("Trade Account Update"));
+		 assertTrue(trade.getAccount().equals("Trade Account Update"));
 
 		// Find
 		List<Trade> listResult = tradeRepository.findAll();
