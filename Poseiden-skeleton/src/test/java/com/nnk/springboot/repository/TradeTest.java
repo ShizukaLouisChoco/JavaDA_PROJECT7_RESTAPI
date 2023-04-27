@@ -39,7 +39,7 @@ public class TradeTest {
 
 		// Find
 		List<Trade> listResult = tradeRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+		 assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = trade.getId();

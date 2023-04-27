@@ -26,11 +26,11 @@ public class TradeController {
     public TradeController(@Qualifier("TradeCrudServiceImpl") CrudService<Trade> tradeCrudService) {
         this.tradeCrudService = tradeCrudService;
     }
+
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
-        model.addAttribute("tradeList", crudService.getAll());
+        model.addAttribute("tradeList", tradeCrudService.getAll());
         return "trade/list";
     }
 
