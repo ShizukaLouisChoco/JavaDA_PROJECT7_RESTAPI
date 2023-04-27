@@ -11,9 +11,8 @@ import java.util.Optional;
 
 
 @Slf4j
-@Service
-@Qualifier("UserCrudServiceImpl")
-public class UserCrudServiceImpl extends AbstractCrudService<User> {
+@Service("UserCrudServiceImpl")
+public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository> {
 
 
     public UserCrudServiceImpl(UserRepository repository){
