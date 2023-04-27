@@ -82,9 +82,8 @@ public class UserController {
     }
 
     @GetMapping("/user/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        crudService.delete(id);
-        // model.addAttribute("users", crudService.getAll());
+    public String deleteUser(@PathVariable("id") Integer id) {
+        UserCrudService.delete(id);
         return "redirect:/user/list";
     }
 }
