@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -19,15 +20,22 @@ public class CurvePoint implements Serializable, CrudEntity<CurvePoint>  {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    //@Column(nullable = false)
+
+
+    @NotNull(message = "CurveId is mandatory")
+    @Column(nullable = false)
     private Integer curveId;
 
-    //@Column(name = "as_of_date")
+    @Column(name = "as_of_date")
     private Timestamp asOfDate;
+
+    @NotNull(message = "term is mandatory")
     private Double term;
+
+    @NotNull(message = "value is mandatory")
     private Double value;
 
-    //@Column(name = "creation_date", nullable = false, updatable = false)
+    @Column(name = "creation_date", updatable = false)
     private Timestamp creationDate;
 
     //for create CurvePoint
@@ -40,11 +48,10 @@ public class CurvePoint implements Serializable, CrudEntity<CurvePoint>  {
     }
 
     //for update bid
-    public CurvePoint ( Timestamp asOfDate,Integer curveId, Double term, Double value){
+    public CurvePoint ( Integer curveId, Double term, Double value){
         this.curveId = curveId;
         this.term = term;
         this.value = value;
-        this.asOfDate = asOfDate;
 
     }
 
@@ -67,7 +74,5 @@ public class CurvePoint implements Serializable, CrudEntity<CurvePoint>  {
         this.asOfDate = entity.getAsOfDate();
         return this;
     }
-    //public CurvePoint(@NotBlank(message = "Account is mandatory") String account, @NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
 
-    //}
 }

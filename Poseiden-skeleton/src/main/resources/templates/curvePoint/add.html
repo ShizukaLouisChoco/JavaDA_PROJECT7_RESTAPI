@@ -15,28 +15,18 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/curvePoint/validate}"  method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
-			 -->
 			<section>
 				<div class="container p-3">
-					<!--exception handling
-                    <div class="row justify-content-center">
-                        <div class="col-6">
-                            <div class="alert alert-danger" th:if="${errorMsg}" th:class="${errorMsg}? 'alert alert-danger':''" role="alert">
-                                <p th:text="${errorMsg}"></p>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-					<div th:object="${curveListForm}">
+					<div th:object="${curvePoint}">
 
 						<div class="row">
 							<label for="curveId" class="col-form-label ">Curve Id</label>
 						</div>
 						<div class="row">
 							<input type="number" th:field="*{curveId}" id="curveId" placeholder="Curve Id"/>
+						</div>
 							<!--validation error-->
+						<div class="row">
 							<p th:if="${#fields.hasErrors('curveId')}" th:class="${#fields.hasErrors('curveId')}? 'text-danger'"
 							   th:errorclass="error" th:errors="*{curveId}"></p>
 						</div>
@@ -47,7 +37,9 @@
 						</div>
 						<div class="row ">
 							<input type="number" th:field="*{term}" id="term" placeholder="Type"/>
+						</div>
 							<!--validation error-->
+						<div class="row ">
 							<p th:if="${#fields.hasErrors('term')}" th:class="${#fields.hasErrors('term')}? 'text-danger'"
 							   th:errorclass="error" th:errors="*{term}"></p>
 						</div>
@@ -58,14 +50,16 @@
 						</div>
 						<div class="row">
 							<input type="number" th:field="*{value}" id="value" placeholder="Value"/>
+						</div>
 							<!--validation error-->
+						<div class="row">
 							<p th:if="${#fields.hasErrors('value')}" th:class="${#fields.hasErrors('value')}? 'text-danger'"
 							   th:errorclass="error" th:errors="*{value}"></p>
 						</div>
 
 						<div class="row">
 
-							<button class="btn btn-primary btn-danger" type="reset"><a href="list">Cancel</a></button>
+							<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="list">Cancel</a></button>
 							<button class="btn btn-primary" type="submit">Add CurvePoint</button>
 
 						</div>

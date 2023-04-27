@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.dto.CurveFormDto;
 import com.nnk.springboot.exception.NoResourceException;
 import com.nnk.springboot.service.CrudService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +19,11 @@ import java.util.Optional;
 @Slf4j
 @Controller
 public class CurveController {
-    private final CrudService crudService;
 
-    public CurveController(@Qualifier("CurveCrudServiceImpl") CrudService crudService) {
-        this.crudService = crudService;
+    private final CrudService<CurvePoint> curveCrudService;
+
+    public CurveController(@Qualifier("CurveCrudServiceImpl") CrudService<CurvePoint> curveCrudService) {
+        this.curveCrudService = curveCrudService;
     }
 
     //Curve 3.3
@@ -36,25 +36,19 @@ public class CurveController {
 
     //Curve 3.1
     @GetMapping("/curvePoint/add")
-    public String addCurveForm(CurvePoint curve, Model model) {
-        //curveId, Term, Value
-        model.addAttribute("curveListForm",new CurveFormDto(curve.getCurveId(),curve.getTerm(),curve.getValue()));
+    public String addCurveForm(  Model model) {
+        model.addAttribute("curvePoint",new CurvePoint( ));
         return "curvePoint/add";
     }
 
     //Curve 3.2
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curve, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
+    public String validate(@Valid CurvePoint curve, BindingResult result,Model model) {
+        model.addAttribute("curvePoint",curve);
         if(result.hasErrors()){
             return "curvePoint/add";
         }
-        try{
-            crudService.create(curve);
-        }catch(Exception ex){
-            model.addAttribute("curveListForm",curve);
-            return "curvePoint/add";
-        }
+        curveCrudService.create(curve);
         return "redirect:/curvePoint/list";
     }
 
