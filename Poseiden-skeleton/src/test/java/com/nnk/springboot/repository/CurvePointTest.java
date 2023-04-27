@@ -36,7 +36,7 @@ public class CurvePointTest {
 		// Update
 		curvePoint.setCurveId(20);
 		curvePoint = curvePointRepository.save(curvePoint);
-		Assert.assertTrue(curvePoint.getCurveId() == 20);
+		 assertTrue(curvePoint.getCurveId() == 20);
 
 		// Find
 		List<CurvePoint> listResult = curvePointRepository.findAll();

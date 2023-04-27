@@ -13,14 +13,16 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curveList.id})}"  method="post" class="form-horizontal" style="width: 100%">
-			<div th:object="${curveList}">
+		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curve.id})}"  method="post" class="form-horizontal" style="width: 100%">
+			<div th:object="${curve}">
 				<div class="row">
 					<label for="curveId" class="col-form-label ">Curve Id</label>
 				</div>
 				<div class="row">
 					<input type="number" th:field="*{curveId}" id="curveId" th:placeholder="*{curveId}"/>
+				</div>
 					<!--validation error-->
+				<div class="row">
 					<p th:if="${#fields.hasErrors('curveId')}" th:class="${#fields.hasErrors('curveId')}? 'text-danger'"
 					   th:errorclass="error" th:errors="*{curveId}"></p>
 				</div>
@@ -31,7 +33,9 @@
 				</div>
 				<div class="row ">
 					<input type="number" th:field="*{term}" id="term" th:placeholder="*{term}"/>
+				</div>
 					<!--validation error-->
+				<div class="row ">
 					<p th:if="${#fields.hasErrors('term')}" th:class="${#fields.hasErrors('term')}? 'text-danger'"
 					   th:errorclass="error" th:errors="*{term}"></p>
 				</div>
@@ -42,14 +46,16 @@
 				</div>
 				<div class="row">
 					<input type="number" th:field="*{value}" id="value" th:placeholder="*{value}"/>
+				</div>
 					<!--validation error-->
+				<div class="row">
 					<p th:if="${#fields.hasErrors('value')}" th:class="${#fields.hasErrors('value')}? 'text-danger'"
 					   th:errorclass="error" th:errors="*{value}"></p>
 				</div>
 
 				<div class="row">
 
-					<button class="btn btn-primary btn-danger" type="reset"><a href="list">Cancel</a></button>
+					<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/curvePoint/list">Cancel</a></button>
 					<button class="btn btn-primary" type="submit">Update curvePoint</button>
 
 				</div>

@@ -55,8 +55,7 @@ public class CurveController {
     //Curve 3.4
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
-        model.addAttribute("curveList", Optional.of(crudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
+        model.addAttribute("curve", Optional.of(curveCrudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
         return "curvePoint/update";
     }
 
@@ -64,16 +63,17 @@ public class CurveController {
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurve(@PathVariable("id") Integer id, @Valid CurvePoint curve,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
-        model.addAttribute("curveList",curve);
+        model.addAttribute("curve",curve);
         if(result.hasErrors()){
-            return "/curvePoint/update/{id}";
+            return "curvePoint/update" ;
         }
         try{
-            crudService.update(curve);
-        }catch(Exception ex){
-            model.addAttribute("curveList",curve);
-            return "curvePoint/update/{id}";
+            curveCrudService.update(curve);
+        }catch(Exception exception){
+            model.addAttribute("curve",curve);
+            log.error(String.valueOf(exception));
+            model.addAttribute("errorMsg" , exception.getMessage());
+            return "curvePoint/update";
 
         }
         return "redirect:/curvePoint/list";
