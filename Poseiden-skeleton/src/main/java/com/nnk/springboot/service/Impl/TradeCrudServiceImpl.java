@@ -4,13 +4,11 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.service.AbstractCrudService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
-@Qualifier("TradeCrudServiceImpl")
-public class TradeCrudServiceImpl  extends AbstractCrudService<Trade> {
+@Service("TradeCrudServiceImpl")
+public class TradeCrudServiceImpl  extends AbstractCrudService<Trade,TradeRepository> {
     public TradeCrudServiceImpl(TradeRepository repository){
         super(repository);
     }
