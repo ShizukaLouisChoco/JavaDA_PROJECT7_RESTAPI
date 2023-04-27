@@ -7,9 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
-@Qualifier("CurveCrudServiceImpl")
-public class CurveCrudServiceImpl extends AbstractCrudService<CurvePoint>{
+@Service("CurveCrudServiceImpl")
+public class CurveCrudServiceImpl extends AbstractCrudService<CurvePoint,CurvePointRepository>{
     public CurveCrudServiceImpl(CurvePointRepository repository){
         super(repository);
     }
