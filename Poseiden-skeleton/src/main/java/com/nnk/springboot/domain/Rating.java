@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -16,9 +18,14 @@ public class Rating implements Serializable, CrudEntity<Rating>  {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+
+    @NotBlank(message="moodysRating is mandatory")
     private String moodysRating;
+    @NotBlank(message="sandPRating is mandatory")
     private String sandPRating;
+    @NotBlank(message="fitchRating is mandatory")
     private String fitchRating;
+    @NotNull(message="orderNumber is mandatory")
     private Integer orderNumber;
 
     public Rating(Rating entity) {
@@ -30,6 +37,12 @@ public class Rating implements Serializable, CrudEntity<Rating>  {
 
     public Rating(Integer id, String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
         this.id= id;
+        this.moodysRating = moodysRating;
+        this.sandPRating = sandPRating;
+        this.fitchRating = fitchRating;
+        this.orderNumber = orderNumber;
+    }
+    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
         this.moodysRating = moodysRating;
         this.sandPRating = sandPRating;
         this.fitchRating = fitchRating;

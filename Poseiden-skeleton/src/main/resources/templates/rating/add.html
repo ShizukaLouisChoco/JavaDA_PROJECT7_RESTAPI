@@ -14,11 +14,68 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
-			 -->
+		<form action="#" th:action="@{/rating/validate}" method="post" class="form-horizontal" style="width: 100%">
+			<section>
+				<div class="container p-3">
+					<div th:object="${rating}">
 
+						<div class="row">
+							<label for="moodysRating" class="col-form-label ">MoodysRating</label>
+						</div>
+						<div class="row">
+							<input type="text" th:field="*{moodysRating}" id="moodysRating" placeholder="moodysRating here"/>
+						</div>
+							<!--validation error-->
+						<div class="row">
+							<p th:if="${#fields.hasErrors('moodysRating')}" th:class="${#fields.hasErrors('moodysRating')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{moodysRating}"></p>
+						</div>
+						<div class="row ">
+							<label for="sandPRating" class=" col-form-label ">SandPRating</label>
+						</div>
+						<div class="row ">
+							<input type="text" th:field="*{sandPRating}" id="sandPRating" placeholder="type"/>
+						</div>
+							<!--validation error-->
+						<div class="row ">
+							<p th:if="${#fields.hasErrors('sandPRating')}" th:class="${#fields.hasErrors('sandPRating')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{sandPRating}"></p>
+						</div>
+
+
+						<div class="row">
+							<label for="fitchRating" class="col-form-label ">FitchRating</label>
+						</div>
+						<div class="row">
+							<input type="text" th:field="*{fitchRating}" id="fitchRating" placeholder="fitchRating here"/>
+						</div>
+							<!--validation error-->
+						<div class="row">
+							<p th:if="${#fields.hasErrors('fitchRating')}" th:class="${#fields.hasErrors('fitchRating')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{fitchRating}"></p>
+						</div>
+
+						<div class="row">
+							<label for="orderNumber" class="col-form-label ">OrderNumber</label>
+						</div>
+						<div class="row">
+							<input type="number" th:field="*{orderNumber}" id="orderNumber" placeholder="orderNumber here"/>
+						</div>
+							<!--validation error-->
+						<div class="row">
+							<p th:if="${#fields.hasErrors('orderNumber')}" th:class="${#fields.hasErrors('orderNumber')}? 'text-danger'"
+							   th:errorclass="error" th:errors="*{orderNumber}"></p>
+						</div>
+
+						<div class="row">
+
+							<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="list">Cancel</a></button>
+							<button class="btn btn-primary" type="submit">Add rating</button>
+
+						</div>
+					</div>
+				</div>
+			</section>
 		</form>
 	</div>
 
