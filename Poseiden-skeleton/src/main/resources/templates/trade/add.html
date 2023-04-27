@@ -14,11 +14,52 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/trade/validate}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade
-			 -->
+		<form action="#" th:action="@{/trade/validate}"  method="post" class="form-horizontal" style="width: 100%">
+			<div th:object="${trade}">
+				<div class="row">
+					<label for="account" class="col-form-label ">Account</label>
+				</div>
+				<div class="row">
+					<input type="text" th:field="*{account}" id="account" placeholder="Account here"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('account')}" th:class="${#fields.hasErrors('account')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{account}"></p>
+				</div>
 
+
+				<div class="row ">
+					<label for="type" class=" col-form-label ">type</label>
+				</div>
+				<div class="row ">
+					<input type="text" th:field="*{type}" id="type" placeholder="type"/>
+				</div>
+					<!--validation error-->
+				<div class="row ">
+					<p th:if="${#fields.hasErrors('type')}" th:class="${#fields.hasErrors('type')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{type}"></p>
+				</div>
+
+				<div class="row">
+					<label for="buyQuantity" class="col-form-label ">buyQuantity</label>
+				</div>
+				<div class="row">
+					<input type="number" th:field="*{buyQuantity}" id="buyQuantity" placeholder="Buy Quantity here"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('buyQuantity')}" th:class="${#fields.hasErrors('buyQuantity')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{buyQuantity}"></p>
+				</div>
+
+				<div class="row">　
+
+					<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/trade/list">Cancel</a></button>
+					<button class="btn btn-primary" type="submit">Add BidList</button>
+
+				</div>
+			</div>
 		</form>
 	</div>
 
