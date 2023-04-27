@@ -57,9 +57,7 @@ public class BidListController {
     //Bid 2.4
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        //Account, Type, Bid quantity,cancel, updateBidList
-        // TODO: get Bid by Id and to model then show to the form
-        model.addAttribute("bidList", Optional.of(crudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
+        model.addAttribute("bidList", Optional.of(bidListCrudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
         return "bidList/update";
     }
 
@@ -72,8 +70,8 @@ public class BidListController {
             return "bidList/update";
         }
         try{
-            crudService.update(bidList);
-        }catch(Exception ex){
+            bidListCrudService.update(bidList);
+        }catch(Exception exception){
             model.addAttribute("bidListForm",bidList);
             log.error(String.valueOf(exception));
             model.addAttribute("errorMsg" , exception.getMessage());
