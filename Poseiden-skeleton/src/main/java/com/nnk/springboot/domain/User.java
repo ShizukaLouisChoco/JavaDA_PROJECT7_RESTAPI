@@ -4,25 +4,24 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Validated
 @Table(name = "users")
 public class User implements Serializable, CrudEntity<User>  {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    //@NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "Username is mandatory")
     private String username;
-    //@NotBlank(message = "Password is mandatory")
+    @NotBlank(message = "Password is mandatory")
     private String password;
-    //@NotBlank(message = "FullName is mandatory")
+    @NotBlank(message = "FullName is mandatory")
     private String fullname;
-    //@NotBlank(message = "Role is mandatory")
+    @NotBlank(message = "Role is mandatory")
     private String role;
 
     public User(User entity) {
@@ -34,6 +33,19 @@ public class User implements Serializable, CrudEntity<User>  {
 
     public User() {
 
+    }
+
+    public User(String fullname, String username, String role, String password) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
+
+    public User(String fullname, String username, String role) {
+        this.username = username;
+        this.fullname = fullname;
+        this.role = role;
     }
 
     @Override

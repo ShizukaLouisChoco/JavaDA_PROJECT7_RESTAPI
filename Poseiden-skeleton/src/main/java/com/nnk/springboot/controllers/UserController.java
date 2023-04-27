@@ -20,10 +20,11 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
-    private final CrudService crudService;
 
-    public UserController(@Qualifier("UserCrudServiceImpl") CrudService crudService) {
-        this.crudService = crudService;
+    private final CrudService<User> UserCrudService;
+
+    public UserController(@Qualifier("UserCrudServiceImpl") CrudService<User> UserCrudService) {
+        this.UserCrudService = UserCrudService;
     }
 
 
@@ -35,26 +36,25 @@ public class UserController {
     }
 
     @GetMapping("/user/add")
-    public String addUser(User user,Model model) {
-        model.addAttribute("user",new User());
+    public String addUser( Model model) {
+        model.addAttribute("user",new User( ));
         return "user/add";
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
+    public String validate(@Valid User user, BindingResult result,Model model) {
         //validation error
+        model.addAttribute("user",user);
         if(result.hasErrors()){
             return "user/add";
-        }
-        //exception handling
-        try {
-            crudService.create(user);
+        }try{
+            UserCrudService.create(user);
         }catch(Exception exception){
+            model.addAttribute("user",user);
             log.error(String.valueOf(exception));
             model.addAttribute("errorMsg" , exception.getMessage());
             return "user/add";
         }
-
         return "redirect:/user/list";
     }
 

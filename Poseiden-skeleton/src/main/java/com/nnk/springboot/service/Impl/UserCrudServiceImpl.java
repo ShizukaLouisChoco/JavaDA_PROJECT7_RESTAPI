@@ -1,11 +1,13 @@
 package com.nnk.springboot.service.Impl;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.AbstractCrudService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Slf4j
@@ -13,12 +15,18 @@ import org.springframework.stereotype.Service;
 @Qualifier("UserCrudServiceImpl")
 public class UserCrudServiceImpl extends AbstractCrudService<User> {
 
+
     public UserCrudServiceImpl(UserRepository repository){
         super(repository);
+
     }
 
     @Override
-    public User create(User entity){
+    public User create(User entity) throws ResourceAlreadyExistException{
+        Optional<User> userExists = repository.findByUsername(entity.getUsername());
+        if(userExists.isPresent()){
+            throw new ResourceAlreadyExistException(entity.getUsername());
+        }
         User newUser = new User(entity);
         return super.create(newUser);
     }
@@ -59,23 +67,4 @@ public class UserCrudServiceImpl extends AbstractCrudService<User> {
     }
 
 
-    @Transactional
-    @Override
-    public User update(User user) {
-        //verify if user exist or not
-        User userToUpdate = userRepository.findById(user.getId()).orElseThrow(() -> new UserNotFoundException("Invalid user Id:" + user.getId()));
-
-        userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setFullname(user.getFullname());
-        userToUpdate.setRole(user.getRole());
-
-        return userRepository.save(userToUpdate);
-    }
-    @Transactional
-    @Override
-    public void delete(Integer id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Invalid user Id:" + id));
-        userRepository.delete(user);
-    }*/
 }
