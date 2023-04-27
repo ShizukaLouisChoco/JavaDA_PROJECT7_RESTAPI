@@ -31,7 +31,7 @@ public class UserController {
     @RequestMapping("/user/list")
     public String home(Model model)
     {
-        model.addAttribute("userList", crudService.getAll());
+        model.addAttribute("userList", UserCrudService.getAll());
         return "user/list";
     }
 
