@@ -32,9 +32,7 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
-        // TODO: call service find all bids to show to the view
-        //Id, Account, Type, Bid Quantity, Action(Edit/Delete), Add New, Logout
-        model.addAttribute("bidlist", crudService.getAll());
+        model.addAttribute("bidList", bidListCrudService.getAll());
         return "bidList/list";
     }
 

@@ -37,16 +37,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
-				<tr th:if="${bidlist.isEmpty()}">
+				<tr th:if="${bidList.isEmpty()}">
 					<td colspan="3">No bid</td>
 				</tr>
-				<tr th:each="bid, iterstat : ${bidlist}" th:class="${iterstat.odd}?'odd'">
+				<tr th:each="bid, iterstat : ${bidList}" th:class="${iterstat.odd}?'odd'">
 					<td th:text="${bid.id}"></td>
 					<td th:text="${bid.account}"></td>
 					<td th:text="${bid.type}"></td>
 					<td th:text="${bid.bidQuantity}"></td>
-					<td><a th:text="Edit" th:href="@{/bidList/update/{id}(id=${bid.id})}">Edit</a> | <a th:text="Delete" th:href="@{/bidList/delete/{id}(id=${bid.id})}"></a></td>
+					<td><a th:text="Edit" th:href="@{/bidList/update/{id}(id=${bid.id})}">Edit</a> |
+						<a th:text="Delete" th:href="@{/bidList/delete/{id}(id=${bid.id})}">Delete</a>
+					</td>
 
 				</tr>
 			</tbody>
