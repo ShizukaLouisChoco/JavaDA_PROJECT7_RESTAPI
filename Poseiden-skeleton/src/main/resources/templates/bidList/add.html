@@ -15,36 +15,26 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/bidList/validate}"  method="post" class="form-horizontal" style="width: 100%">
-			<section>
-			<div class="container p-3">
-				<!--exception handling
-				<div class="row justify-content-center">
-					<div class="col-6">
-						<div class="alert alert-danger" th:if="${errorMsg}" th:class="${errorMsg}? 'alert alert-danger':''" role="alert">
-							<p th:text="${errorMsg}"></p>
-						</div>
-					</div>
-				</div>
-				-->
-				<div th:object="${bidListForm}">
-
+			<div  th:object="${bidList}">
 						<div class="row">
 							<label for="account" class="col-form-label ">Account</label>
 						</div>
 						<div class="row">
 							<input type="text" th:field="*{account}" id="account" placeholder="Account here"/>
+						</div>
 							<!--validation error-->
+						<div class="row">
 							<p th:if="${#fields.hasErrors('account')}" th:class="${#fields.hasErrors('account')}? 'text-danger'"
 							   th:errorclass="error" th:errors="*{account}"></p>
 						</div>
-
-
 						<div class="row ">
 							<label for="type" class=" col-form-label ">type</label>
 						</div>
 						<div class="row ">
 							<input type="text" th:field="*{type}" id="type" placeholder="type"/>
+						</div>
 							<!--validation error-->
+						<div class="row ">
 							<p th:if="${#fields.hasErrors('type')}" th:class="${#fields.hasErrors('type')}? 'text-danger'"
 							   th:errorclass="error" th:errors="*{type}"></p>
 						</div>
@@ -55,20 +45,20 @@
 						</div>
 						<div class="row">
 							<input type="number" th:field="*{bidQuantity}" id="bidQuantity" placeholder="Bid Quantity here"/>
+						</div>
 							<!--validation error-->
+						<div class="row">
 							<p th:if="${#fields.hasErrors('bidQuantity')}" th:class="${#fields.hasErrors('bidQuantity')}? 'text-danger'"
 							   th:errorclass="error" th:errors="*{bidQuantity}"></p>
 						</div>
 
 					<div class="row">
 
-							<button class="btn btn-primary btn-danger" type="reset"><a href="list">Cancel</a></button>
+							<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/bidList/list">Cancel</a></button>
 							<button class="btn btn-primary" type="submit">Add BidList</button>
 
 					</div>
-				</div>
 			</div>
-			</section>
 		</form>
 	</div>
 

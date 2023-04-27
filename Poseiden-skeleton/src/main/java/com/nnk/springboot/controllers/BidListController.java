@@ -20,10 +20,12 @@ import java.util.Optional;
 @Slf4j
 @Controller
 public class BidListController {
-    private final CrudService crudService;
 
-    public BidListController(@Qualifier("BidListCrudServiceImpl")CrudService crudService ) {
-        this.crudService = crudService;
+
+    private final CrudService<BidList> bidListCrudService;
+
+    public BidListController(@Qualifier("bidListCrudService") CrudService<BidList> bidListCrudService ) {
+        this.bidListCrudService = bidListCrudService;
     }
 
     //Bid 2.3
@@ -38,25 +40,19 @@ public class BidListController {
 
     //Bid 2.1
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid,Model model) {
-        model.addAttribute("bidListForm",new BidList(/*bid.getAccount(),bid.getType(),bid.getBidQuantity())*/));
+    public String addBidForm( Model model) {
+        model.addAttribute("bidList", new BidList( ));
         return "bidList/add";
     }
 
     //Bid 2.2
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        //Account, Type, Bidquantity
-        // TODO: check data valid and save to db, after saving return bid list
-        if(result.hasErrors()){
-        return "bidList/add";
+    public String validate(@Valid BidList bidList, BindingResult result,Model model) {
+        model.addAttribute("bidList",bidList);
+         if (result.hasErrors()) {
+            return "bidList/add";
         }
-        try{
-            crudService.create(bid);
-        }catch(Exception ex){
-            model.addAttribute("bidListForm",bid);
-        return "bidList/add";
-        }
+        bidListCrudService.create(bidList);
         return "redirect:/bidList/list";
     }
 
