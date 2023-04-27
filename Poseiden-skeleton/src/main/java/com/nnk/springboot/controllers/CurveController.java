@@ -29,7 +29,7 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        model.addAttribute("curvelist", curveCrudService.getAll());
+        model.addAttribute("curveList", curveCrudService.getAll());
         return "curvePoint/list";
     }
 
@@ -60,13 +60,13 @@ public class CurveController {
                              BindingResult result, Model model) {
         model.addAttribute("curveList",curve);
         if(result.hasErrors()){
-            return "curvePoint/update" ;
+            return "curvePoint/update";
         }
         try{
             curveCrudService.update(curve);
         }catch(Exception ex){
             model.addAttribute("curveList",curve);
-            return "curvePoint/update/{id}";
+            return "curvePoint/update";
 
         }
         return "redirect:/curvePoint/list";
