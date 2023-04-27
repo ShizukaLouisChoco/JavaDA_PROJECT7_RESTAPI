@@ -46,7 +46,7 @@ public class CurvePointTest {
 		Integer id = curvePoint.getId();
 		curvePointRepository.delete(curvePoint);
 		Optional<CurvePoint> curvePointList = curvePointRepository.findById(id);
-		Assert.assertFalse(curvePointList.isPresent());
+		 assertFalse(curvePointList.isPresent());
 	}
 
 }
