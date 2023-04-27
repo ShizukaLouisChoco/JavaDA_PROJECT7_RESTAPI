@@ -29,7 +29,7 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
-        model.addAttribute("rulelist", crudService.getAll());
+        model.addAttribute("ruleNameList", ruleNameCrudService.getAll());
         return "ruleName/list";
     }
 
