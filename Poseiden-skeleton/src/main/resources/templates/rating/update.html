@@ -14,10 +14,65 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/rating/update/{id}(id=${rating.id})}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
-			 -->
+		<form action="#" th:action="@{/rating/update/{id}(id=${rating.id})}"  method="post" class="form-horizontal" style="width: 100%">
+			<div th:object="${rating}">
+				<div class="row">
+					<label for="moodysRating" class="col-form-label ">moodysRating</label>
+				</div>
+				<div class="row">
+					<input type="text" th:field="*{moodysRating}" id="moodysRating" th:placeholder="*{moodysRating}"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('moodysRating')}" th:class="${#fields.hasErrors('moodysRating')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{moodysRating}"></p>
+				</div>
+
+
+				<div class="row ">
+					<label for="sandPRating" class=" col-form-label ">sandPRating</label>
+				</div>
+				<div class="row ">
+					<input type="text" th:field="*{sandPRating}" id="sandPRating" th:placeholder="*{sandPRating}"/>
+				</div>
+					<!--validation error-->
+				<div class="row ">
+					<p th:if="${#fields.hasErrors('sandPRating')}" th:class="${#fields.hasErrors('sandPRating')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{sandPRating}"></p>
+				</div>
+
+
+				<div class="row">
+					<label for="fitchRating" class="col-form-label ">fitchRating</label>
+				</div>
+				<div class="row">
+					<input type="text" th:field="*{fitchRating}" id="fitchRating" th:placeholder="*{fitchRating}"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('fitchRating')}" th:class="${#fields.hasErrors('fitchRating')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{fitchRating}"></p>
+				</div>
+
+				<div class="row">
+					<label for="orderNumber" class="col-form-label ">orderNumber</label>
+				</div>
+				<div class="row">
+					<input type="text" th:field="*{orderNumber}" id="orderNumber" th:placeholder="*{orderNumber}"/>
+				</div>
+					<!--validation error-->
+				<div class="row">
+					<p th:if="${#fields.hasErrors('orderNumber')}" th:class="${#fields.hasErrors('orderNumber')}? 'text-danger'"
+					   th:errorclass="error" th:errors="*{orderNumber}"></p>
+				</div>
+
+				<div class="row">
+
+					<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/rating/list">Cancel</a></button>
+					<button class="btn btn-primary" type="submit">Update BidList</button>
+
+				</div>
+			</div>
 		</form>
 	</div>
 
