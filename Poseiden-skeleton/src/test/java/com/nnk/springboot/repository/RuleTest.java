@@ -48,6 +48,6 @@ public class RuleTest {
 		Integer id = rule.getId();
 		ruleNameRepository.delete(rule);
 		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		Assert.assertFalse(ruleList.isPresent());
+		 assertFalse(ruleList.isPresent());
 	}
 }
