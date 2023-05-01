@@ -67,14 +67,6 @@ public class BidList implements Serializable, CrudEntity<BidList> {
         this.revisionDate = entity.getRevisionDate();
     }
 
-    //for create bid
-    public BidList (String account, String type, Timestamp creationDate, Double bidQuantity){
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-        this.creationDate = creationDate;
-
-    }
 
     public BidList (String account, String type, Double bidQuantity){
         this.account = account;
@@ -82,13 +74,7 @@ public class BidList implements Serializable, CrudEntity<BidList> {
         this.bidQuantity = bidQuantity;
 
     }
-    public BidList (String account, String type, Double bidQuantity,Timestamp revisionDate){
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-        this.revisionDate = revisionDate;
 
-    }
 
     public BidList update(BidList entity) {
         this.account = entity.getAccount();
