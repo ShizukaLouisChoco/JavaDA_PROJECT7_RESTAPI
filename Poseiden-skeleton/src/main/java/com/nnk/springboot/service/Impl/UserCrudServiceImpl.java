@@ -5,6 +5,7 @@ import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.AbstractCrudService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,10 +15,12 @@ import java.util.Optional;
 @Service("UserCrudServiceImpl")
 public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository> {
 
+    private final PasswordEncoder passwordEncoder;
 
-    public UserCrudServiceImpl(UserRepository repository){
+    public UserCrudServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder){
         super(repository);
 
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,6 +29,7 @@ public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository
         if(userExists.isPresent()){
             throw new ResourceAlreadyExistException(entity.getUsername());
         }
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         User newUser = new User(entity);
         return super.create(newUser);
     }
@@ -35,7 +39,9 @@ public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository
         if(userExists.isPresent() && userExists.get().getId()!= entity.getId()){
             throw new ResourceAlreadyExistException(entity.getUsername());
         }
-        User updatedEntity =  getById(entity.getId())
+     entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+
+     User updatedEntity =  getById(entity.getId())
                 .update(entity);
         this.repository.save(updatedEntity );
     }
