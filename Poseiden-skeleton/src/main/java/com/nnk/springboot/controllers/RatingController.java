@@ -20,10 +20,10 @@ import java.util.Optional;
 @Controller
 public class RatingController {
 
-    private final CrudService<Rating> ratingCrudService;
+    private final CrudService crudService;
 
-    public RatingController(@Qualifier("RatingCrudServiceImpl") CrudService<Rating> ratingCrudService) {
-        this.ratingCrudService = ratingCrudService;
+    public RatingController(@Qualifier("RatingCrudServiceImpl") CrudService crudService) {
+        this.crudService = crudService;
     }
 
 
@@ -35,18 +35,25 @@ public class RatingController {
     }
 
     @GetMapping("/rating/add")
-    public String addRatingForm( Model model) {
-        model.addAttribute("rating", new Rating( ));
+    public String addRatingForm(Rating rating,Model model) {
+        model.addAttribute("ratingForm", new Rating());
         return "rating/add";
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result,Model model) {
-        model.addAttribute("rating",rating);
+    public String validate(@Valid Rating rating, BindingResult result, Model model) {
+        // TODO: check data valid and save to db, after saving return Rating list
         if(result.hasErrors()){
             return "rating/add";
         }
-        ratingCrudService.create(rating);
+        try{
+            crudService.create(rating);
+        }catch(Exception exception){
+            model.addAttribute("rating",rating);
+            log.error(String.valueOf(exception));
+            model.addAttribute("errorMsg" , exception.getMessage());
+            return "rating/add";
+        }
         return "redirect:/rating/list";
     }
 
@@ -59,18 +66,17 @@ public class RatingController {
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
         model.addAttribute("rating",rating);
         if(result.hasErrors()){
-            return "/rating/update/{id}";
+            return "rating/update";
         }
         try{
-            crudService.update(rating);
+            ratingCrudService.update(rating);
         }catch(Exception exception){
             model.addAttribute("rating",rating);
             log.error(String.valueOf(exception));
             model.addAttribute("errorMsg" , exception.getMessage());
-            return "rating/update/{id}";
+            return "rating/update";
 
         }
         return "redirect:/rating/list";

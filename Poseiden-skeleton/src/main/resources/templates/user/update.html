@@ -12,7 +12,10 @@
 	<div class="row">
 		<h2>Update User</h2>
 	</div>
-
+	<!--exception handling-->
+	<div class="alert alert-danger" th:if="${errorMsg}" th:class="${errorMsg}? 'alert alert-danger':''" role="alert">
+		<p th:text="${errorMsg}"></p>
+	</div>
 	<div class="row">
 		<form action="#" th:action="@{/user/update/{id}(id=${user.id})}" th:object="${user}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="row">
@@ -64,7 +67,7 @@
 
 			<div class="row">
 				<button class="btn btn-danger text-white" type="reset"><a class="text-white" href="/user/list">Cancel</a></button>
-				<button class="btn btn-primary" type="submit">Update BidList</button>
+				<button class="btn btn-primary" type="submit">Update user</button>
 			</div>
 
 		</form>

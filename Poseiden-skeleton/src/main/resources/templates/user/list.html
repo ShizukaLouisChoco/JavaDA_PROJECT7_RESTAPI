@@ -4,13 +4,12 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+<link rel="stylesheet"  href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-
 		</div>
 		<div class="col-6 text-right">
 			<a href="/">Home</a>&nbsp;|&nbsp;<a href="/login">Login</a>
@@ -30,14 +29,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="user : ${users}">
-					<td style="width: 10%" th:text="${user.id}"></td>
+				<tr th:if="${userList.isEmpty()}">
+					<td colspan="3">No user</td>
+				</tr>
+				<tr th:each="user, iterstat : ${userList}" th:class="${iterstat.odd}?'odd'">
+					<td th:text="${user.id}"></td>
 					<td th:text="${user.fullname}"></td>
 					<td th:text="${user.username}"></td>
-					<td style="width: 25%" th:text="${user.role}"></td>
-					<td style="width: 15%" class="text-center">
-						<a th:href="@{/user/update/{id}(id=${user.id})}">Edit</a>&nbsp;|&nbsp;
-						<a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a>
+					<td th:text="${user.role}"></td>
+					<td>
+						<a th:text="Edit" th:href="@{/user/update/{id}(id=${user.id})}">Edit</a> |
+						<a th:text="Delete" th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a>
 					</td>
 				</tr>
 			</tbody>

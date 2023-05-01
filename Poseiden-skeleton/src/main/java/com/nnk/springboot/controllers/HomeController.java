@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 	@RequestMapping("/")
-	public String home(Model model)
+	public String home()
 	{
 		return "home";
 	}
@@ -17,12 +17,8 @@ public class HomeController {
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model)
 	{
-		return "redirect:/bidList/list";
+		return "home";
 	}
 
-	@RequestMapping("/login")
-	public String login(){
-		return "login";
-	}
 
 }

@@ -10,8 +10,6 @@ import java.io.Serializable;
 
 @Entity
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Validated
 @Table(name = "rating")
 public class Rating implements Serializable, CrudEntity<Rating>  {
@@ -35,8 +33,7 @@ public class Rating implements Serializable, CrudEntity<Rating>  {
        this.orderNumber = entity.getOrderNumber();
     }
 
-    public Rating(Integer id, String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
-        this.id= id;
+    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
         this.moodysRating = moodysRating;
         this.sandPRating = sandPRating;
         this.fitchRating = fitchRating;

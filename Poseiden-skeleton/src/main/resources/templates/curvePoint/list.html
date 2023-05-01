@@ -37,16 +37,17 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all CurvePoint to the table, the action column will have Edit & Delete buttons -->
-			<tr th:if="${curvelist.isEmpty()}">
-				<td colspan="3">No curve Point</td>
+			<tr th:if="${curvePointList.isEmpty()}">
+				<td colspan="3">No curve point</td>
 			</tr>
-			<tr th:each="curve, iterstat : ${curvelist}" th:class="${iterstat.odd}?'odd'">
+			<tr th:each="curve, iterstat : ${curvePointList}" th:class="${iterstat.odd}?'odd'">
 				<td th:text="${curve.id}"></td>
 				<td th:text="${curve.curveId}"></td>
 				<td th:text="${curve.term}"></td>
 				<td th:text="${curve.value}"></td>
-				<td><a th:text="Edit" th:href="@{/curvePoint/update/{id}(id=${curve.id})}">Edit</a> | <a th:text="Delete" th:href="@{/curvePoint/delete/{id}(id=${curve.id})}"></a></td>
+				<td><a th:text="Edit" th:href="@{/curvePoint/update/{id}(id=${curve.id})}">Edit</a> |
+					<a th:text="Delete" th:href="@{/curvePoint/delete/{id}(id=${curve.id})}">Delete</a>
+				</td>
 			</tr>
 			</tbody>
 		</table>
