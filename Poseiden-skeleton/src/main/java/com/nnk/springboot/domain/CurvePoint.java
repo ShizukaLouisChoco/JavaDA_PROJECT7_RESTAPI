@@ -11,8 +11,6 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Validated
 @Table(name = "curvepoint")
 public class CurvePoint implements Serializable, CrudEntity<CurvePoint>  {
@@ -38,14 +36,7 @@ public class CurvePoint implements Serializable, CrudEntity<CurvePoint>  {
     @Column(name = "creation_date", updatable = false)
     private Timestamp creationDate;
 
-    //for create CurvePoint
-    public CurvePoint(Integer curveId, Double term, Double value, Timestamp creationDate) {
-        this.curveId = curveId;
-        this.term = term;
-        this.value = value;
-        this.asOfDate = creationDate;
-        this.creationDate = creationDate;
-    }
+
 
     //for update bid
     public CurvePoint ( Integer curveId, Double term, Double value){
