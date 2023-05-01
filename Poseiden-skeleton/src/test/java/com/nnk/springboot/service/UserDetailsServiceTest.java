@@ -36,7 +36,24 @@ public class UserDetailsServiceTest {
     @DisplayName("loadUserByUsername if UserAccountExists ShouldReturnUserDetails")
     public void testLoadUserByUsername() {
         // GIVEN
-        User user = new User("fullname","username","role","password");
+        User user = new User("fullname","username","USER","password");
+
+        // WHEN
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+
+        // THEN
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+
+        assertThat(userDetails.getUsername()).isEqualTo(user.getUsername());
+        assertThat(userDetails.getPassword()).isEqualTo(user.getPassword());
+        assertThat(userDetails.getAuthorities()).hasSize(1);
+    }
+
+    @Test
+    @DisplayName("loadUserByUsername if UserAccountExists ShouldReturnUserDetails")
+    public void testLoadAdminByUsername() {
+        // GIVEN
+        User user = new User("fullname","username","ADMIN","password");
 
         // WHEN
         when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
