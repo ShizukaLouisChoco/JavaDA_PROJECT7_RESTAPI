@@ -12,8 +12,6 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Validated
 @Table(name = "trade")
 public class Trade  implements Serializable, CrudEntity<Trade>  {
@@ -31,7 +29,7 @@ public class Trade  implements Serializable, CrudEntity<Trade>  {
     private Double sellPrice;
     private String benchmark;
 
-   private Timestamp tradeDate;
+    private Timestamp tradeDate;
     private String security;
     private String status;
     private String trader;
@@ -74,12 +72,6 @@ public class Trade  implements Serializable, CrudEntity<Trade>  {
 
     }
 
-    public Trade(Integer id, String account, String type, Double buyQuantity) {
-        this.id = id;
-        this.account =account;
-        this.type = type;
-        this.buyQuantity = buyQuantity;
-    }
 
     public Trade(String account, String type, double buyQuantity) {
         this.account = account;
