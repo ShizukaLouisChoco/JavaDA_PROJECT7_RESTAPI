@@ -40,7 +40,8 @@ public class BidListControllerIT {
         final String url = "/bidList/list";
 
         //WHEN
-        final var response = mockMvc.perform(get(url))
+        final var response = mockMvc.perform(get(url)
+                 .with(csrf()))
                 .andDo(MockMvcResultHandlers.print());
 
 
@@ -193,7 +194,7 @@ public class BidListControllerIT {
         // THEN
         response.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("bidList/update"));
+                .andExpect(view().name("error"));
     }
 
     @WithMockUser(username = "username")

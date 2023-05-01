@@ -31,7 +31,7 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
-        model.addAttribute("bidlist", bidListCrudService.getAll());
+        model.addAttribute("bidList", bidListCrudService.getAll());
         return "bidList/list";
     }
 
@@ -61,17 +61,11 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
-            model.addAttribute("bidListForm",bidList);
+            model.addAttribute("bidList",bidList);
         if(result.hasErrors()){
-            return "/bidList/update/{id}";
+            return "bidList/update";
         }
-        try{
             bidListCrudService.update(bidList);
-        }catch(Exception ex){
-            model.addAttribute("bidListForm",bidList);
-            return "bidList/update/{id}";
-
-        }
         return "redirect:/bidList/list";
     }
 
