@@ -3,15 +3,16 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.CrudEntity;
 import com.nnk.springboot.exception.NoResourceException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public abstract class AbstractCrudService<M extends CrudEntity<M>> implements CrudService<M> {
+public abstract class AbstractCrudService<M extends CrudEntity<M>, R extends JpaRepository<M, Integer>> implements CrudService<M> {
 
-    protected final JpaRepository<M, Integer> repository;
+    protected final R repository;
 
 
-    public AbstractCrudService(JpaRepository<M, Integer> repository){
+    public AbstractCrudService(R repository){
         this.repository = repository;
     }
 
