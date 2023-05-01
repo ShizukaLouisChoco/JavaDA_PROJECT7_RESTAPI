@@ -26,22 +26,19 @@ public class CurveController {
         this.curveCrudService = curveCrudService;
     }
 
-    //Curve 3.3
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        model.addAttribute("curvePointList", curveCrudService.getAll());
+        model.addAttribute("curvelist", curveCrudService.getAll());
         return "curvePoint/list";
     }
 
-    //Curve 3.1
     @GetMapping("/curvePoint/add")
     public String addCurveForm(  Model model) {
         model.addAttribute("curvePoint",new CurvePoint( ));
         return "curvePoint/add";
     }
 
-    //Curve 3.2
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curve, BindingResult result,Model model) {
         model.addAttribute("curvePoint",curve);
@@ -52,28 +49,24 @@ public class CurveController {
         return "redirect:/curvePoint/list";
     }
 
-    //Curve 3.4
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("curve", Optional.of(curveCrudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
+       model.addAttribute("curveList", Optional.of(curveCrudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
         return "curvePoint/update";
     }
 
-    //Curve 3.4
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurve(@PathVariable("id") Integer id, @Valid CurvePoint curve,
                              BindingResult result, Model model) {
-        model.addAttribute("curve",curve);
+        model.addAttribute("curveList",curve);
         if(result.hasErrors()){
             return "curvePoint/update" ;
         }
         try{
             curveCrudService.update(curve);
-        }catch(Exception exception){
-            model.addAttribute("curve",curve);
-            log.error(String.valueOf(exception));
-            model.addAttribute("errorMsg" , exception.getMessage());
-            return "curvePoint/update";
+        }catch(Exception ex){
+            model.addAttribute("curveList",curve);
+            return "curvePoint/update/{id}";
 
         }
         return "redirect:/curvePoint/list";
@@ -81,8 +74,7 @@ public class CurveController {
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurve(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        crudService.delete(id);
+        curveCrudService.delete(id);
         return "redirect:/curvePoint/list";
     }
 }
