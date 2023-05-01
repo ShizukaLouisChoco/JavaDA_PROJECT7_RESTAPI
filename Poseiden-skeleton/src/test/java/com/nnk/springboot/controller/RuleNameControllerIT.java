@@ -194,21 +194,23 @@ public class RuleNameControllerIT {
     @Test
     public void testRuleNameUpdateWithException() throws Exception {
         //GIVEN
-        final String url = "/ruleName/update/100";
+        final String url = "/ruleName/update/200";
         // WHEN
         final var response = mockMvc.perform(post(url)
                 .with(csrf())
-                .param("name", "user")
-                .param("description", "type")
-                .param("json", "type")
-                .param("template", "type")
-                .param("sql", "type")
-                .param("sqlPart", "type"));
+                .param("name", "name")
+                .param("description", "description")
+                .param("json", "json")
+                .param("template", "template")
+                .param("sqlStr", "sql")
+                .param("sqlPart", "sqlPart"));
 
         // THEN
         response.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("ruleName/update"));
+                .andExpect(view().name("ruleName/update"))
+                .andExpect(model().attributeExists("ruleName"))
+                .andExpect(model().attributeExists("errorMsg"));
     }
 
     @WithMockUser(username = "username")

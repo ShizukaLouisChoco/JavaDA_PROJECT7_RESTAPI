@@ -9,8 +9,6 @@ import java.io.Serializable;
 
 @Entity
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Validated
 @Table(name = "rulename")
 public class RuleName implements Serializable , CrudEntity<RuleName> {
