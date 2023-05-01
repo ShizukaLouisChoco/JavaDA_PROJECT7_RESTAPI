@@ -15,6 +15,8 @@ public abstract class AbstractCrudService<M extends CrudEntity<M>> implements Cr
         this.repository = repository;
     }
 
+
+    @Transactional
     @Override
     public M create(M entity){
         return this.repository.save(entity);
@@ -34,6 +36,7 @@ public abstract class AbstractCrudService<M extends CrudEntity<M>> implements Cr
     }
 
 
+    @Transactional
     @Override
     public void update(M entity){
         M updatedEntity =  getById(entity.getId())
@@ -42,6 +45,7 @@ public abstract class AbstractCrudService<M extends CrudEntity<M>> implements Cr
 
     }
 
+    @Transactional
     @Override
     public void delete(Integer id){
         this.repository.deleteById(id);
