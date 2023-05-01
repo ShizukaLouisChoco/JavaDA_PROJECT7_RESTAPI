@@ -37,10 +37,10 @@
 				</tr>
 			</thead>
 			<tbody>
-			<tr th:if="${curvePointList.isEmpty()}">
+			<tr th:if="${curveList.isEmpty()}">
 				<td colspan="3">No curve point</td>
 			</tr>
-			<tr th:each="curve, iterstat : ${curvePointList}" th:class="${iterstat.odd}?'odd'">
+			<tr th:each="curve, iterstat : ${curveList}" th:class="${iterstat.odd}?'odd'">
 				<td th:text="${curve.id}"></td>
 				<td th:text="${curve.curveId}"></td>
 				<td th:text="${curve.term}"></td>

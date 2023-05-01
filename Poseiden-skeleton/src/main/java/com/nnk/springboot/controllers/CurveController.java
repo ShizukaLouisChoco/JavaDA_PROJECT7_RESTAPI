@@ -62,13 +62,7 @@ public class CurveController {
         if(result.hasErrors()){
             return "curvePoint/update";
         }
-        try{
             curveCrudService.update(curve);
-        }catch(Exception ex){
-            model.addAttribute("curveList",curve);
-            return "curvePoint/update";
-
-        }
         return "redirect:/curvePoint/list";
     }
 

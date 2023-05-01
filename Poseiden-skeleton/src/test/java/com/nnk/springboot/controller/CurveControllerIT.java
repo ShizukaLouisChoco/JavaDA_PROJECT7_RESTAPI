@@ -39,14 +39,15 @@ public class CurveControllerIT {
         final String url = "/curvePoint/list";
 
         //WHEN
-        final var response = mockMvc.perform(get(url))
+        final var response = mockMvc.perform(get(url)
+                .with(csrf()))
                 .andDo(MockMvcResultHandlers.print());
 
 
         //THEN
         response.andExpect(status().isOk())
                 .andExpect(view().name("curvePoint/list"))
-                .andExpect(model().attributeExists("curvePointList"));
+                .andExpect(model().attributeExists("curveList"));
     }
 
     @WithMockUser(username = "username")
@@ -126,7 +127,7 @@ public class CurveControllerIT {
         //THEN
         response.andExpect(status().isOk())
                 .andExpect(view().name("curvePoint/update"))
-                .andExpect(model().attributeExists("curve"));
+                .andExpect(model().attributeExists("curveList"));
     }
 
     @WithMockUser(username = "username")
@@ -190,7 +191,7 @@ public class CurveControllerIT {
         // THEN
         response.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("curvePoint/update"));
+                .andExpect(view().name("error"));
     }
 
     @WithMockUser(username = "username")

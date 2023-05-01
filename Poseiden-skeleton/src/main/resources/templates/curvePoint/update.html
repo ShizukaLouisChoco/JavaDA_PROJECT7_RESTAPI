@@ -13,8 +13,8 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curve.id})}"  method="post" class="form-horizontal" style="width: 100%">
-			<div th:object="${curve}">
+		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curveList.id})}"  method="post" class="form-horizontal" style="width: 100%">
+			<div th:object="${curveList}">
 				<div class="row">
 					<label for="curveId" class="col-form-label ">Curve Id</label>
 				</div>
