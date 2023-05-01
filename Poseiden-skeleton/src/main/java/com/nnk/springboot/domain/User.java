@@ -42,11 +42,6 @@ public class User implements Serializable, CrudEntity<User>  {
         this.role = role;
     }
 
-    public User(String fullname, String username, String role) {
-        this.username = username;
-        this.fullname = fullname;
-        this.role = role;
-    }
 
     @Override
     public User update(User entity) {
