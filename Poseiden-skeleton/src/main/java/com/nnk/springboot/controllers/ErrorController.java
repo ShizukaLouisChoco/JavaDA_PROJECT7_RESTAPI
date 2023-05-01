@@ -14,8 +14,8 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
     @GetMapping("/error")
     public String error(Model model, HttpServletResponse response) {
         HttpStatus httpStatus = HttpStatus.valueOf(response.getStatus());
-        if(httpStatus.is5xxServerError()| httpStatus.is4xxClientError()){
-        model.addAttribute("errorStatus",httpStatus);}
+        //if(httpStatus.is5xxServerError()| httpStatus.is4xxClientError()){
+        model.addAttribute("errorStatus",httpStatus);
         return "error";
     }
 

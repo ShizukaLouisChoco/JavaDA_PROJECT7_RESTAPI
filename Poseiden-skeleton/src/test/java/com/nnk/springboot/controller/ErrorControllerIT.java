@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -40,7 +39,7 @@ public class ErrorControllerIT {
         //THEN
         response.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                //.andExpect(model().attributeExists("errorStatus"))
+                .andExpect(model().attributeExists("errorStatus"))
                 .andExpect(view().name("error"));
     }
 }
