@@ -20,10 +20,10 @@ import java.util.Optional;
 @Controller
 public class RatingController {
 
-    private final CrudService crudService;
+    private final CrudService<Rating> ratingCrudService;
 
-    public RatingController(@Qualifier("RatingCrudServiceImpl") CrudService crudService) {
-        this.crudService = crudService;
+    public RatingController(@Qualifier("RatingCrudServiceImpl") CrudService<Rating> ratingCrudService) {
+        this.ratingCrudService = ratingCrudService;
     }
 
 
@@ -42,18 +42,10 @@ public class RatingController {
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
         if(result.hasErrors()){
             return "rating/add";
         }
-        try{
-            crudService.create(rating);
-        }catch(Exception exception){
-            model.addAttribute("rating",rating);
-            log.error(String.valueOf(exception));
-            model.addAttribute("errorMsg" , exception.getMessage());
-            return "rating/add";
-        }
+            ratingCrudService.create(rating);
         return "redirect:/rating/list";
     }
 
