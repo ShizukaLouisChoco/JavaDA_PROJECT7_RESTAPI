@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.config.ValidPassword;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -18,6 +19,8 @@ public class User implements Serializable, CrudEntity<User>  {
     @NotBlank(message = "Username is mandatory")
     private String username;
     @NotBlank(message = "Password is mandatory")
+    //@Min(value = 7, message = "Password should not be less than 8")
+    @ValidPassword
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;

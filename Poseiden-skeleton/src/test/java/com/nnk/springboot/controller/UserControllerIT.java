@@ -78,7 +78,7 @@ public class UserControllerIT {
                 .with(csrf())
                 .param("fullname", "fullname")
                 .param("username", "username")
-                .param("password", "password")
+                .param("password", "Password1!")
                 .param("role","role"));
 
         // THEN
@@ -99,7 +99,7 @@ public class UserControllerIT {
                 .with(csrf())
                 .param("fullname", "")
                 .param("username", "username")
-                .param("password", "password")
+                .param("password", "Password1!")
                 .param("role","role"));
 
         // THEN
@@ -120,7 +120,7 @@ public class UserControllerIT {
                 .with(csrf())
                 .param("fullname", "fullname")
                 .param("username", "username")
-                .param("password", "password")
+                .param("password", "Password1!")
                 .param("role","role"));
 
         // THEN
@@ -168,7 +168,7 @@ public class UserControllerIT {
                 .with(csrf())
                 .param("fullname", "fullname")
                 .param("username", "username")
-                .param("password", "password")
+                .param("password", "Password1!")
                 .param("role","role"));
 
         // THEN
@@ -191,6 +191,7 @@ public class UserControllerIT {
                 .with(csrf())
                 .param("fullname", "")
                 .param("username", "username")
+                .param("password", "Password1!")
                 .param("role","role"));
 
 
@@ -209,14 +210,14 @@ public class UserControllerIT {
         final User existingUser = createUserOnDatabase();
         final Integer id = existingUser.getId();
         final String url = "/user/update/" + id;
-        userRepository.save(new User ("fullname", "username2", "role","password"));
+        userRepository.save(new User ("fullname", "username2", "role","Password1!"));
 
         // WHEN
         final var response = mockMvc.perform(post(url)
                 .with(csrf())
                 .param("fullname", "fullname")
                 .param("username", "username2")
-                .param("password", "password")
+                .param("password", "Password1!")
                 .param("role","role"));
 
         // THEN
@@ -250,7 +251,7 @@ public class UserControllerIT {
     }
 
     private User createUserOnDatabase(){
-        return  userRepository.save(new User ("fullname", "username", "role","password"));
+        return  userRepository.save(new User ("fullname", "username", "role","Password1!"));
     }
 
 }
