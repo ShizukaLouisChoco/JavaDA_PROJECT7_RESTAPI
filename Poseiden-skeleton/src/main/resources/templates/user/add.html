@@ -49,8 +49,12 @@
 			</div>
 			<!--validation error-->
 			<div class="row ">
-				<p th:if="${#fields.hasErrors('password')}" th:class="${#fields.hasErrors('password')}? 'text-danger'"
-				   th:errorclass="error" th:errors="*{password}"></p>
+				<ul th:each="error: ${#fields.errors('password')}" th:class="${#fields.hasErrors('password')}? 'text-danger'" >
+					<li th:each="message : ${error.split(',')}">
+						<p class="error-message"
+						   th:text="${message}"></p>
+					</li>
+				</ul>
 			</div>
 			<div class="row">
 				<label>Role</label>

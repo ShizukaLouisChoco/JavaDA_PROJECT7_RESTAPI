@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -42,10 +45,12 @@ public class UserController {
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result,Model model) {
+    public String validate(@Valid User user, BindingResult bindingResult,Model model) {
         //validation error
         model.addAttribute("user",user);
-        if(result.hasErrors()){
+        if(bindingResult.hasErrors()){
+            List<String> result = new ArrayList<>(Arrays.asList(bindingResult.toString().split("\\s*,\\s*")));
+            model.addAttribute("result",result);
             return "user/add";
         }try{
             UserCrudService.create(user);
