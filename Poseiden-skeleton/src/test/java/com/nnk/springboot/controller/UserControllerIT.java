@@ -31,7 +31,7 @@ public class UserControllerIT {
     @Autowired
     private UserRepository userRepository;
 
-    @WithMockUser(username = "username")
+    @WithMockUser(username = "username", authorities = "ADMIN")
     @Test
     @DisplayName("Test GetMapping list")
     public void getMappingHomeTest() throws Exception {
@@ -130,7 +130,7 @@ public class UserControllerIT {
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attributeExists("errorMsg"));
     }
-    @WithMockUser(username = "username")
+    @WithMockUser(username = "username", authorities = "ADMIN")
     @Test
     @DisplayName("Test GetMapping update")
     public void getMappingUpdateTest() throws Exception {
@@ -154,7 +154,7 @@ public class UserControllerIT {
                 .andExpect(model().attributeExists("user"));
     }
 
-    @WithMockUser(username = "username")
+    @WithMockUser(username = "username", authorities = "ADMIN")
     @DisplayName("user/update can update ")
     @Test
     public void postMappingUpdateTest() throws Exception {
@@ -177,7 +177,7 @@ public class UserControllerIT {
                 .andExpect(redirectedUrl("/user/list"));
     }
 
-    @WithMockUser(username = "username")
+    @WithMockUser(username = "username", authorities = "ADMIN")
     @DisplayName("/user/update with validation error")
     @Test
     public void testBidListUpdateWithValidationError() throws Exception {
@@ -202,7 +202,7 @@ public class UserControllerIT {
                 .andExpect(model().attributeExists("user"));
     }
 
-    @WithMockUser(username = "username")
+    @WithMockUser(username = "username", authorities = "ADMIN")
     @DisplayName("user/update with exception ")
     @Test
     public void testUserUpdateWithException() throws Exception {
@@ -228,7 +228,7 @@ public class UserControllerIT {
                 .andExpect(model().attributeExists("errorMsg"));
     }
 
-    @WithMockUser(username = "username")
+    @WithMockUser(username = "username", authorities = "ADMIN")
     @Test
     @DisplayName("Test GetMapping delete")
     public void getMappingDeleteTest() throws Exception {
@@ -251,7 +251,7 @@ public class UserControllerIT {
     }
 
     private User createUserOnDatabase(){
-        return  userRepository.save(new User ("fullname", "username", "role","Password1!"));
+        return  userRepository.save(new User ("fullname", "username", "ADMIN","Password1!"));
     }
 
 }
