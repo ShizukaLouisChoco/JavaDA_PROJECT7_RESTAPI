@@ -31,29 +31,34 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
+        log.info("heading to /bidList/list");
         model.addAttribute("bidList", bidListCrudService.getAll());
         return "bidList/list";
     }
 
     @GetMapping("/bidList/add")
     public String addBidForm( Model model) {
+        log.info("heading to /bidList/add");
         model.addAttribute("bidList", new BidList( ));
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bidList, BindingResult result,Model model) {
+        log.info("heading to /bidList/validate");
         model.addAttribute("bidList",bidList);
          if (result.hasErrors()) {
+        log.info("validation error !");
             return "bidList/add";
         }
         bidListCrudService.create(bidList);
+        log.info("new bid list is created !");
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        //Account, Type, Bid quantity,cancel, updateBidList
+        log.info("heading to /bidList/update/{id}");
         model.addAttribute("bidList", Optional.of(bidListCrudService.getById(id)).orElseThrow(()->new NoResourceException(id)));
         return "bidList/update";
     }
@@ -61,17 +66,21 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
+        log.info("heading to /bidList/update/{id} postmapping");
             model.addAttribute("bidList",bidList);
         if(result.hasErrors()){
+        log.info("validation error !");
             return "bidList/update";
         }
             bidListCrudService.update(bidList);
+        log.info("bid list is updated");
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         bidListCrudService.delete(id);
+        log.info("bid list is deleted");
         return "redirect:/bidList/list";
     }
 }

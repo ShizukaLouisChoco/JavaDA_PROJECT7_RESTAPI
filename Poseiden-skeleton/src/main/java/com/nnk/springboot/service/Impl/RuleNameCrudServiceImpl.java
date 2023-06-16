@@ -16,6 +16,7 @@ public class RuleNameCrudServiceImpl extends AbstractCrudService<RuleName,RuleNa
 
     @Override
     public RuleName create(RuleName entity){
+        log.info("creating rule name in RuleNameCrudServiceImpl");
         RuleName newRuleName = new RuleName(entity);
         return super.create(newRuleName);
     }

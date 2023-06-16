@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
+        log.info("heading to /login");
         return "login";
     }
 

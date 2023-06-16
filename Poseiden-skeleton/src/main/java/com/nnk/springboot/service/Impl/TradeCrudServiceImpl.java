@@ -15,6 +15,7 @@ public class TradeCrudServiceImpl  extends AbstractCrudService<Trade,TradeReposi
 
     @Override
     public Trade create(Trade entity){
+        log.info("creating trade in TradeCrudServiceImpl");
         Trade newTrade = new Trade(entity);
         return super.create(newTrade);
     }

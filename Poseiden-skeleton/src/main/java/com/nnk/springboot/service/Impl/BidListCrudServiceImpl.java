@@ -11,15 +11,14 @@ import org.springframework.stereotype.Service;
 @Service("bidListCrudService")
 public class BidListCrudServiceImpl extends AbstractCrudService<BidList,BidListRepository>  {
 
-
     @Autowired
     public BidListCrudServiceImpl(BidListRepository repository){
         super(repository);
     }
 
-
     @Override
     public BidList create(BidList entity ){
+        log.info("creating bid list in bidListCrudServiceImpl");
         BidList newBidList = new BidList(entity);
         return super.create(newBidList);
     }

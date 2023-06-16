@@ -17,6 +17,7 @@ public class HomeController {
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model)
 	{
+		log.info("heading to /admin/home");
 		return "home";
 	}
 

@@ -25,6 +25,7 @@ public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository
 
     @Override
     public User create(User entity) throws ResourceAlreadyExistException{
+        log.info("creating user in UserCrudServiceImpl");
         Optional<User> userExists = repository.findByUsername(entity.getUsername());
         if(userExists.isPresent()){
             throw new ResourceAlreadyExistException(entity.getUsername());
@@ -35,6 +36,7 @@ public class UserCrudServiceImpl extends AbstractCrudService<User,UserRepository
     }
  @Override
     public void update(User entity) throws ResourceAlreadyExistException{
+        log.info("updating user in UserCrudServiceImpl");
         Optional<User> userExists = repository.findByUsername(entity.getUsername());
         if(userExists.isPresent() && userExists.get().getId()!= entity.getId()){
             throw new ResourceAlreadyExistException(entity.getUsername());

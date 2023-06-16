@@ -16,6 +16,7 @@ public class RatingCrudServiceImpl extends AbstractCrudService<Rating,RatingRepo
 
     @Override
     public Rating create(Rating entity){
+        log.info("creating rating in RatingCrudServiceImpl");
         Rating newRating = new Rating(entity);
         return super.create(newRating);
     }

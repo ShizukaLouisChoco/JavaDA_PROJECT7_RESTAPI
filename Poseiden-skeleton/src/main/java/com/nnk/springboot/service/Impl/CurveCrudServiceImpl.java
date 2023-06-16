@@ -15,6 +15,7 @@ public class CurveCrudServiceImpl extends AbstractCrudService<CurvePoint,CurvePo
 
     @Override
     public CurvePoint create(CurvePoint entity){
+        log.info("creating curve point in CurveCrudServiceImpl");
         CurvePoint newCurvePoint = new CurvePoint(entity);
         return super.create(newCurvePoint);
     }
